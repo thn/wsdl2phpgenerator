@@ -184,7 +184,7 @@ class Service implements ClassGenerator
                 $init[$type->getIdentifier()] = $this->config->get('namespaceName') . "\\" . $type->getPhpIdentifier();
             }
         }
-        $var = new PhpVariable('private static', $name, var_export($init, true), $comment);
+        $var = new PhpVariable('public static', $name, var_export($init, true), $comment);
 
         // Add the classmap variable
         $this->class->addVariable($var);
