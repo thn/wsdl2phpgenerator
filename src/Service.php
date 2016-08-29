@@ -173,6 +173,13 @@ class Service implements ClassGenerator
         // Add the constructor
         $this->class->addFunction($function);
 
+        // Add classsmap accessor
+        $comment = new PhpDocComment("Return the classmap");
+        $source = '    return self::$classmap;';
+
+        $function = new PhpFunction('public static', 'getClassMap', '', $source, $comment);
+        $this->class->addFunction($function);
+
         // Generate the classmap
         $name = 'classmap';
         $comment = new PhpDocComment();
@@ -184,7 +191,7 @@ class Service implements ClassGenerator
                 $init[$type->getIdentifier()] = $this->config->get('namespaceName') . "\\" . $type->getPhpIdentifier();
             }
         }
-        $var = new PhpVariable('public static', $name, var_export($init, true), $comment);
+        $var = new PhpVariable('private static', $name, var_export($init, true), $comment);
 
         // Add the classmap variable
         $this->class->addVariable($var);
