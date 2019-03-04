@@ -41,6 +41,11 @@ class ComplexType extends Type
     protected $abstract;
 
     /**
+     * @var
+     */
+    private $baseExtends;
+
+    /**
      * Construct the object
      *
      * @param ConfigInterface $config The configuration
@@ -52,6 +57,7 @@ class ComplexType extends Type
         $this->members = array();
         $this->baseType = null;
         $this->abstract = false;
+        $this->baseExtends = $config->get('baseExtends');
     }
 
     /**
@@ -73,7 +79,8 @@ class ComplexType extends Type
             $classBaseType,
             null,
             false,
-            $this->abstract
+            $this->abstract,
+            $this->baseExtends
         );
 
         $constructorComment = new PhpDocComment();

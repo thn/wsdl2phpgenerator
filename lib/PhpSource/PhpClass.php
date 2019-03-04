@@ -92,6 +92,11 @@ class PhpClass extends PhpElement
     private $abstract;
 
     /**
+     * @var string
+     */
+    private $baseExtends;
+
+    /**
      *
      * @param string $identifier
      * @param bool $classExists
@@ -100,7 +105,7 @@ class PhpClass extends PhpElement
      * @param bool $final
      * @param bool $abstract
      */
-    public function __construct($identifier, $classExists = false, $extends = '', PhpDocComment $comment = null, $final = false, $abstract = false)
+    public function __construct($identifier, $classExists = false, $extends = '', PhpDocComment $comment = null, $final = false, $abstract = false, $baseEextends = '')
     {
         $this->dependencies = array();
         $this->classExists = $classExists;
@@ -114,6 +119,7 @@ class PhpClass extends PhpElement
         $this->functions = array();
         $this->indentionStr = '    '; // Use 4 spaces as indention, as requested by PSR-2
         $this->abstract = $abstract;
+        $this->baseExtends = $baseEextends;
     }
 
     /**
@@ -152,8 +158,14 @@ class PhpClass extends PhpElement
         if (strlen($this->extends) > 0) {
             $ret .= ' extends ' . $this->extends;
         }
+        else
+        {
+            if (strlen($this->baseExtends) > 0) {
+                $ret .= ' extends ' . $this->baseExtends;
+            }
+        }
 
-        if (count($this->implements) > 0) {
+        if (is_countable($this->implements) > 0) {
             $ret .= ' implements ' . implode(', ', $this->implements);
         }
 

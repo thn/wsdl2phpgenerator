@@ -75,7 +75,8 @@ class Config implements ConfigInterface
             'soapClientClass'                => '\SoapClient',
             'soapClientOptions'              => array(),
             'proxy'                          => false,
-            'generateAutoloader'             => true
+            'generateAutoloader'             => true,
+            'baseExtends'                    => ''
         ));
 
         // A set of configuration options names and normalizer callables.
